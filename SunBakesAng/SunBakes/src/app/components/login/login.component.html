@@ -1,0 +1,48 @@
+<div class="Login">
+  <div class="video-container">
+    <video *ngIf="videoSource" [src]="videoSource" [muted]="true" [autoplay]="true" [loop]="true">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+  <div class="login-container">
+    <form [formGroup]="loginForm" class="form-group" (ngSubmit)="handleForm()">
+      <h2>Login {{ headerText }}</h2>
+
+      <div>
+        <input #inputEmail formControlName="email" placeholder="Email" type="email" class="form-control" />
+        <div class="req" *ngIf="loginForm.get('email')?.errors && (loginForm.get('email')?.touched ||inputEmail.value.length>0)">
+          <p *ngIf="loginForm.get('email')?.getError('required')">Email is Required</p>
+          <p *ngIf="loginForm.get('email')?.getError('email')">Invalid Email</p>
+        </div>
+      </div>
+
+      <div>
+        <input #inputPassword formControlName="password" placeholder="Password" type="password" class="form-control" />
+        <div class="req" *ngIf="loginForm.get('password')?.errors && (loginForm.get('password')?.touched||inputPassword.value.length>0)">
+          <p *ngIf="loginForm.get('password')?.getError('required')">Password is Required</p>
+          <p *ngIf="loginForm.get('password')?.getError('minlength')">Password must be at least 6 characters</p>
+          <p *ngIf="loginForm.get('password')?.getError('maxlength')">Password can be at most 20 characters</p>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary">
+        <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i>
+        Login
+      </button>
+
+      <p *ngIf="messageError" class="req">{{ messageError }}</p>
+
+      <div class="more">
+        <p>
+          <a routerLink="/register" class="regest">I don't have an account, Register now</a>
+        </p>
+      </div>
+      <div class="more">
+        <p>
+          <a routerLink="/forget-password" class="regest">Forgot password?</a>
+        </p>
+      </div>
+    </form>
+  </div>
+</div>

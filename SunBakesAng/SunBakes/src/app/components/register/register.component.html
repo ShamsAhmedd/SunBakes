@@ -1,0 +1,44 @@
+<div class="Registration">
+  <div class="video-container">
+    <video *ngIf="videoSource" [src]="videoSource" [muted]="true" [autoplay]="true" [loop]="true">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+  <div class="register-container">
+    <form [formGroup]="registerForm" class="form-group" (ngSubmit)="handleForm()">
+      <h2>Register {{ headerText }}</h2>
+
+      <div>
+        <input #inputName formControlName="name" placeholder="Name" type="text" class="form-control" />
+        <div class="req" *ngIf="registerForm.get('name')?.errors && (registerForm.get('name')?.touched||inputName.value.length>0)">
+          <p *ngIf="registerForm.get('name')?.getError('required')">Name is Required</p>
+          <p *ngIf="registerForm.get('name')?.getError('minlength')">Name MinLength 3</p>
+          <p *ngIf="registerForm.get('name')?.getError('maxlength')">Name MaxLength 20</p>
+        </div>
+      </div>
+
+      <div>
+        <input #inputEmail formControlName="email" placeholder="Email" type="email" class="form-control" />
+        <div class="req" *ngIf="registerForm.get('email')?.errors && (registerForm.get('email')?.touched||inputEmail.value.length>0)">
+          <p *ngIf="registerForm.get('email')?.getError('required')">Email is Required</p>
+          <p *ngIf="registerForm.get('email')?.getError('email')">Invalid Email</p>
+        </div>
+      </div>
+
+      <div>
+        <input #inputPassword formControlName="password" placeholder="Password" type="password" class="form-control" />
+        <div class="req" *ngIf="registerForm.get('password')?.errors && (registerForm.get('password')?.touched||inputPassword.value.length>0)">
+          <p *ngIf="registerForm.get('password')?.getError('required')">Password is Required</p>
+          <p *ngIf="registerForm.get('password')?.getError('minlength')">Password minLength 6</p>
+          <p *ngIf="registerForm.get('password')?.getError('maxlength')">Password maxLength 20</p>
+        </div>
+      </div>
+
+      <button [disabled]="registerForm.invalid" type="submit" class="btn btn-primary">
+        <i *ngIf="isLoading" class="fas fa-spinner" style="animation: fa-spin 2s infinite linear;"></i>
+        Register
+      </button>
+      <p *ngIf="messageError" class="req">{{ messageError }}</p>
+    </form>
+  </div>
+</div>

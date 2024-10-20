@@ -1,0 +1,180 @@
+<div class="main" style="margin-top: 100px;">
+  <form [formGroup]="HeaderAndFooterForm" (ngSubmit)="handleAddOrUpdateHeaderAndFooter()" class="form" style="background-color: #f8f9fa; padding: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+    <h1 class="form-title text-primary text-center mb-4">
+      {{ currentHeaderAndFooterId ? 'Update Header and Footer' : 'Add Header and Footer' }}
+    </h1>
+
+    <div class="mb-3">
+      <input
+        class="mdl-textfield__input form-control"
+        type="text"
+        id="logo"
+        formControlName="logo"
+        placeholder="Enter logo"
+        style="padding: 10px; border: 1px solid #ced4da; border-radius: 5px;"
+      />
+      <div *ngIf="HeaderAndFooterForm.get('logo')?.invalid && HeaderAndFooterForm.get('logo')?.touched" class="text-danger">
+        Logo is required.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <input
+        class="mdl-textfield__input form-control"
+        type="text"
+        id="address"
+        formControlName="address"
+        placeholder="Enter address"
+        style="padding: 10px; border: 1px solid #ced4da; border-radius: 5px;"
+      />
+      <div *ngIf="HeaderAndFooterForm.get('address')?.invalid && HeaderAndFooterForm.get('address')?.touched" class="text-danger">
+        Address is required.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <input
+        class="mdl-textfield__input form-control"
+        type="text"
+        id="phone"
+        formControlName="phone"
+        placeholder="Enter phone number"
+        style="padding: 10px; border: 1px solid #ced4da; border-radius: 5px;"
+      />
+      <div *ngIf="HeaderAndFooterForm.get('phone')?.invalid && HeaderAndFooterForm.get('phone')?.touched" class="text-danger">
+        Phone number is required.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <input
+        class="mdl-textfield__input form-control"
+        type="email"
+        id="gmail"
+        formControlName="gmail"
+        placeholder="Enter email"
+        style="padding: 10px; border: 1px solid #ced4da; border-radius: 5px;"
+      />
+      <div *ngIf="HeaderAndFooterForm.get('gmail')?.invalid && HeaderAndFooterForm.get('gmail')?.touched" class="text-danger">
+        Email is required.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="headerImg">choose headerImg</label>
+      <input
+        class="mdl-textfield__input form-control"
+        type="file"
+        (change)="onFileSelected($event, 'headerImg')"
+        accept="image/*"
+        placeholder="Choose header image"
+        style="padding: 10px; border: 1px solid #ced4da; border-radius: 5px;"
+      />
+      <div *ngIf="!HeaderAndFooterForm.get('headerImg')?.value && HeaderAndFooterForm.get('headerImg')?.touched && !currentHeaderAndFooterId" class="text-danger">
+        Header image is required.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="image1">choose footer image1</label>
+      <input
+        class="mdl-textfield__input form-control"
+        type="file"
+        (change)="onFileSelected($event, 'image1')"
+        accept="image/*"
+        placeholder="Choose image 1"
+        style="padding: 10px; border: 1px solid #ced4da; border-radius: 5px;"
+      />
+      <div *ngIf="!HeaderAndFooterForm.get('image1')?.value && HeaderAndFooterForm.get('image1')?.touched && !currentHeaderAndFooterId" class="text-danger">
+        Image 1 is required.
+      </div>
+    </div>
+
+
+    <div class="mb-3">
+      <label for="image2">choose footer image2</label>
+
+      <input
+        class="mdl-textfield__input form-control"
+        type="file"
+        (change)="onFileSelected($event, 'image2')"
+        accept="image/*"
+        placeholder="Choose image 2"
+        style="padding: 10px; border: 1px solid #ced4da; border-radius: 5px;"
+      />
+      <div *ngIf="!HeaderAndFooterForm.get('image2')?.value && HeaderAndFooterForm.get('image2')?.touched && !currentHeaderAndFooterId" class="text-danger">
+        Image 2 is required.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="image3">choose footer image3</label>
+      <input
+        class="mdl-textfield__input form-control"
+        type="file"
+        (change)="onFileSelected($event, 'image3')"
+        accept="image/*"
+        placeholder="Choose image 3"
+        style="padding: 10px; border: 1px solid #ced4da; border-radius: 5px;"
+      />
+      <div *ngIf="!HeaderAndFooterForm.get('image3')?.value && HeaderAndFooterForm.get('image3')?.touched && !currentHeaderAndFooterId" class="text-danger">
+        Image 3 is required.
+      </div>
+    </div>
+
+    <div class="buttons-container text-center">
+      <button
+        class="mdl-button mdl-js-button mdl-button--raised color--light-blue"
+        type="submit"
+        [disabled]="HeaderAndFooterForm.invalid || isLoading"
+        style="padding: 10px 20px; border-radius: 5px; "
+      >
+        <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i>
+        {{ currentHeaderAndFooterId ? 'Update Header and Footer' : 'Add Header and Footer' }}
+      </button>
+    </div>
+  </form>
+
+  <div *ngIf="messageError" class="error text-danger text-center mt-3">{{ messageError }}</div>
+
+  <div class="card mt-4" style="padding: 20px;">
+    <h1 class="card-header text-primary text-center">Header and Footer List</h1>
+    <div class="card-body">
+      <div *ngFor="let item of headerAndFooters" class="contentStyle d-flex align-items-center mb-3 border p-3 rounded" style="background-color: #f9f9f9;">
+        <div class="style-title flex-fill text-start mx-2">
+          <h5 class="m-0">{{ item.logo }}</h5>
+        </div>
+
+        <div class="flex-fill mx-2">
+          <p class="m-0">{{ item.address }}</p>
+        </div>
+
+        <div class="flex-fill mx-2">
+          <p class="m-0">{{ item.phone }}</p>
+        </div>
+
+        <div class="flex-fill mx-2">
+          <p class="m-0">{{ item.gmail }}</p>
+        </div>
+
+        <div class="image-container flex-fill mx-2 d-flex justify-content-center">
+          <img *ngIf="item.headerImg" [src]="item.headerImg" class="img-style" alt="Header Image" style="max-width: 100px; max-height: 100px;">
+        </div>
+        <div class="image-container flex-fill mx-2 d-flex justify-content-center">
+          <img *ngIf="item.image1" [src]="item.image1" class="img-style" alt="Image 1" style="max-width: 100px; max-height: 100px;">
+        </div>
+        <div class="image-container flex-fill mx-2 d-flex justify-content-center">
+          <img *ngIf="item.image2" [src]="item.image2" class="img-style" alt="Image 2" style="max-width: 100px; max-height: 100px;">
+        </div>
+        <div class="image-container flex-fill mx-2 d-flex justify-content-center">
+          <img *ngIf="item.image3" [src]="item.image3" class="img-style" alt="Image 3" style="max-width: 100px; max-height: 100px;">
+        </div>
+
+        <div class="style-buttons flex-shrink-0 mx-2 d-flex justify-content-end">
+          <button class="btn btn-warning me-2" (click)="editHeaderAndFooter(item)">Update</button>
+          <button class="btn btn-danger" (click)="deleteStyle(item._id)">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

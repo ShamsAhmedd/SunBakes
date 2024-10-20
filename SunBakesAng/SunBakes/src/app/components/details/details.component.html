@@ -1,0 +1,28 @@
+<section class="d-flex justify-content-center align-items-center vh-100 mt-5 mt-md-0">
+  <div class="row align-items-center shadow-lg p-3 bg-white rounded" style="max-width: 800px; width: 100%;">
+
+    <div class="col-md-4">
+      <img class="w-100 rounded" [src]="product.imageCover" [alt]="product.title" style="object-fit: cover; height: 250px;">
+    </div>
+
+    <div class="col-md-8">
+      <div>
+        <h3 class="h4 text-primary mb-1">{{ product.title }}</h3> 
+        <p class="text-muted mb-2">{{ product.description }}</p> 
+        <h4 class="h6 text-secondary mb-2">{{ product.category.title }}</h4>
+
+        <div class="card-text text-muted d-flex justify-content-between align-items-center mb-3">
+          <span class="h5 fw-bold">{{ product.price }} EGP</span>
+          <div class="d-flex align-items-center">
+            <i class="fas fa-star text-warning"></i>
+            <span class="ms-2">{{ product.ratingAverage }}</span>
+          </div>
+        </div>
+
+        <button (click)="addCart(product._id)"  class="btn btn-primary w-100 py-1">
+          <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i>
+          Add To Cart</button>
+      </div>
+    </div>
+  </div>
+</section>

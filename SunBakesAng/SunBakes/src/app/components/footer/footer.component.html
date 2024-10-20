@@ -1,0 +1,45 @@
+<footer class="footer">
+  <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
+      <div class="container py-5">
+          <div class="row g-5">
+              <div class="col-lg-3 col-md-6">
+                  <h4 class="text-white mb-3">Company</h4>
+                  <a routerLink="/about" class="btn btn-link text-light">About Us</a>
+                  <a routerLink="/contact" class="btn btn-link text-light">Contact Us</a>
+              </div>
+
+              <div class="col-lg-3 col-md-6">
+                  <h4 class="text-white mb-3">Contact</h4>
+                  <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>{{ address }}</p>
+                  <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>{{ phone }}</p>
+                  <p class="mb-2"><i class="fa fa-envelope me-3"></i>{{ gmail }}</p>
+              </div>
+
+              <div class="col-lg-3 col-md-6">
+                  <h4 class="text-white mb-3">Gallery</h4>
+                  <div class="row g-2 pt-2">
+                      <div class="col-6 col-md-4" *ngIf="image1">
+                          <img class="img-fluid bg-light p-1 gallery-img" [src]="image1" alt="Gallery Image 1" />
+                      </div>
+                      <div class="col-6 col-md-4" *ngIf="image2">
+                          <img class="img-fluid bg-light p-1 gallery-img" [src]="image2" alt="Gallery Image 2" />
+                      </div>
+                      <div class="col-6 col-md-4" *ngIf="image3">
+                          <img class="img-fluid bg-light p-1 gallery-img" [src]="image3" alt="Gallery Image 3" />
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <div class="container">
+          <div class="copyright">
+              <div class="row">
+                  <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                      &copy; <a class="border-bottom text-light" routerLink="/home">{{ logo }}</a>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</footer>

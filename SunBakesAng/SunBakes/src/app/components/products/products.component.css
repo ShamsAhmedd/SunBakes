@@ -1,0 +1,49 @@
+.imagee {
+  background-size: cover; 
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%; 
+}
+
+.image-container {
+  height: 250px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 30px 30px  0 0;
+}
+
+.card-img-top {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border: #6E340C 2px solid;
+  border-radius: 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+  transition: transform 0.3s ease;
+
+}
+
+.card-body {
+  flex-grow: 1;
+}
+
+.card-text {
+  padding: 8px 12px; 
+}
+
+.card:hover .card-img-top {
+  transform: scale(1.05);
+}
+.texxt {
+  text-shadow: 5px 1px 0 #863928, -1px -1px 0 #863928;
+  z-index: 3;
+}

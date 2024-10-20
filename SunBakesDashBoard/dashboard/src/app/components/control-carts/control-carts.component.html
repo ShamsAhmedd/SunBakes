@@ -1,0 +1,21 @@
+<div class="main" style="margin-top: 100px;">
+  <h1 class="text-center text-primary">Cart Details</h1>
+
+  <div *ngIf="messageError" class="alert alert-danger text-center">{{ messageError }}</div>
+
+  <div *ngFor="let cart of carts" class="mb-4">
+    <div class="card">
+      <h2 class="card-header text-primary text-center">User: {{ cart.email }}</h2>
+      <div class="card-body">
+        <h4>Total Price: {{ cart.totalPrice | currency }}</h4>
+
+        <ul class="list-group">
+          <li *ngFor="let product of cart.products" class="list-group-item d-flex justify-content-between align-items-center">
+            <span>{{ product.title }}</span>
+            <span class="badge bg-primary rounded-pill">Quantity: {{ product.quantity }}</span> <!-- Product quantity -->
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

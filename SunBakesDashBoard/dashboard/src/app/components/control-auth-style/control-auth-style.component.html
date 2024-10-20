@@ -1,0 +1,70 @@
+<div class="main" style="margin-top: 100px;">
+  <form [formGroup]="authStyleForm" (ngSubmit)="handleAddOrUpdateStyle()" class="form" style="background-color: #f8f9fa; padding: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+    <h1 class="form-title text-primary text-center mb-4">{{ currentStyleId ? 'Update Style' : 'Add Style' }}</h1>
+
+    <div class="mb-3">
+      <input
+        class="mdl-textfield__input"
+        type="text"
+        id="title"
+        formControlName="title"
+        placeholder="Enter style title"
+        style="padding: 10px; border: 1px solid #ced4da; border-radius: 5px;"
+      />
+      <div *ngIf="authStyleForm.get('title')?.invalid && authStyleForm.get('title')?.touched" class="text-danger">
+        Title is required and must be at least 3 characters.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <input
+        class="mdl-textfield__input"
+        type="file"
+        (change)="onFileSelected($event)"
+        accept="video/*"
+        placeholder="Choose video file"
+        style="padding: 10px; border: 1px solid #ced4da; border-radius: 5px;"
+      />
+      <div *ngIf="!authStyleForm.get('videoUrl')?.value && authStyleForm.get('videoUrl')?.touched" class="text-danger">
+        Video file is required.
+      </div>
+    </div>
+
+    <div class="buttons-container text-center">
+      <button
+        class="mdl-button mdl-js-button mdl-button--raised color--light-blue"
+        type="submit"
+        [disabled]="authStyleForm.invalid"
+        style="padding: 10px 20px; border-radius: 5px;"
+      >
+        <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i>
+        {{ currentStyleId ? 'Update Style' : 'Add Style' }}
+      </button>
+    </div>
+  </form>
+
+  <div *ngIf="messageError" class="error text-danger text-center">{{ messageError }}</div>
+
+  <div class="card mt-4" style="padding: 20px;">
+    <h1 class="card-header text-primary text-center">Styles List</h1>
+    <div class="card-body">
+      <div *ngFor="let style of styles" class="contentStyle d-flex align-items-center mb-3 border p-3 rounded" style="background-color: #f9f9f9;">
+        <div class="style-title flex-fill text-start mx-2">
+          <h5 class="m-0">{{ style.title }}</h5>
+        </div>
+
+        <div class="video-container flex-fill mx-2 d-flex justify-content-center">
+          <video class="video-style" *ngIf="style.videoUrl" controls style="width: 150px; height: auto;">
+            <source [src]="style.videoUrl" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+
+        <div class="style-buttons flex-shrink-0 mx-2 d-flex justify-content-end">
+          <button class="btn btn-warning me-2" (click)="editStyle(style)">Update</button>
+          <button class="btn btn-danger" (click)="deleteStyle(style._id)">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

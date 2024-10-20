@@ -1,0 +1,148 @@
+<div class="main" style="margin-top: 100px;">
+  <form [formGroup]="ProductForm" (ngSubmit)="handleAddOrUpdateProduct()" class="form" style="background-color: #f8f9fa; padding: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+    <h1 class="form-title text-primary text-center mb-4">
+      {{ currentProductId ? 'Update Product' : 'Add Product' }}
+    </h1>
+
+    <div class="mb-3">
+      <label for="headerImg" class="form-label">Header Image (Optional)</label>
+      <input
+        class="mdl-textfield__input"
+        type="file"
+        (change)="onProductFileSelected($event, 'headerImg')"
+        accept="image/*"
+      />
+    </div>
+
+    <div class="mb-3">
+      <input
+        class="mdl-textfield__input border-0 border-opacity-50"
+        type="text"
+        id="title"
+        formControlName="title"
+        placeholder="Enter product title"
+        style="padding: 10px; border: 1px solid #ced4da; border-radius: 5px;"
+      />
+      <div *ngIf="ProductForm.get('title')?.invalid && ProductForm.get('title')?.touched" class="text-danger">
+        Title is required.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <textarea
+        class="mdl-textfield__input border-0 border-opacity-50"
+        id="description"
+        formControlName="description"
+        placeholder="Enter product description"
+        style="padding: 10px; border: 1px solid #ced4da; border-radius: 5px;"
+      ></textarea>
+      <div *ngIf="ProductForm.get('description')?.invalid && ProductForm.get('description')?.touched" class="text-danger">
+        Description is required.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <input
+        class="mdl-textfield__input border-0 border-opacity-50"
+        type="number"
+        id="quantity"
+        formControlName="quantity"
+        placeholder="Enter product quantity"
+        min="0"
+        style="padding: 10px; border: 1px solid #ced4da; border-radius: 5px;"
+      />
+      <div *ngIf="ProductForm.get('quantity')?.invalid && ProductForm.get('quantity')?.touched" class="text-danger">
+        Quantity is required and must be greater than or equal to 0.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <input
+        class="mdl-textfield__input border-0 border-opacity-50"
+        type="number"
+        formControlName="price"
+        placeholder="Enter product price"
+        min="0"
+        style="padding: 10px; border: 1px solid #ced4da; border-radius: 5px;"
+      />
+      <div *ngIf="ProductForm.get('price')?.invalid && ProductForm.get('price')?.touched" class="text-danger">
+        Price is required and must be greater than or equal to 0.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="category">Select Category</label>
+      <select class="mdl-textfield__input border-0 border-opacity-50" id="category" formControlName="category" style="padding: 10px; border: 1px solid #ced4da; border-radius: 5px;">
+        <option value="" disabled selected>Select a category</option>
+        <option *ngFor="let category of categories" [value]="category._id">{{ category.title }}</option>
+      </select>
+      <div *ngIf="ProductForm.get('category')?.invalid && ProductForm.get('category')?.touched" class="text-danger">
+        Category is required.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="imageCover" class="form-label">Image Cover</label>
+      <input
+        class="mdl-textfield__input"
+        type="file"
+        (change)="onProductFileSelected($event, 'imageCover')"
+        accept="image/*"
+      />
+    </div>
+
+    <div class="mb-3">
+      <input
+        class="mdl-textfield__input border-0 border-opacity-50"
+        type="number"
+        id="ratingAverage"
+        formControlName="ratingAverage"
+        placeholder="Enter product rating average"
+        min="0"
+        max="5"
+        style="padding: 10px; border: 1px solid #ced4da; border-radius: 5px;"
+      />
+      <div *ngIf="ProductForm.get('ratingAverage')?.invalid && ProductForm.get('ratingAverage')?.touched" class="text-danger">
+        Rating must be between 0 and 5.
+      </div>
+    </div>
+
+    <div class="buttons-container text-center">
+      <button
+        class="mdl-button mdl-js-button mdl-button--raised color--light-blue"
+        type="submit"
+        style="padding: 10px 20px; border-radius: 5px;"
+      >
+        <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i>
+        {{ currentProductId ? 'Update Product' : 'Add Product' }}
+      </button>
+    </div>
+  </form>
+
+  <div *ngIf="messageError" class="error text-danger text-center">{{ messageError }}</div>
+
+  <div class="card mt-4" style="padding: 20px;">
+    <h1 class="card-header text-primary text-center">Product List</h1>
+    <div class="card-body">
+      <div *ngFor="let product of products" class="contentStyle d-flex align-items-center mb-3 border p-3 rounded" style="background-color: #f9f9f9;">
+        <div class="style-title flex-fill text-start mx-2">
+          <h5 class="m-0">{{ product.title }}</h5>
+          <p class="m-0">Description: {{ product.description }}</p>
+          <p class="m-0">Quantity: {{ product.quantity }}</p>
+          <p class="m-0">Price: ${{ product.price }}</p>
+          <p class="m-0">Category: {{ product.category.title }}</p>
+          <p class="m-0">Rating: {{ product.ratingAverage }}</p>
+        </div>
+
+        <div class="image-container flex-fill mx-2 d-flex justify-content-center">
+          <img [src]="product.imageCover" alt="Image Cover" class="image-style" *ngIf="product.imageCover" style="width: 100px; height: 100px; object-fit: cover;">
+        </div>
+
+        <div class="style-buttons flex-shrink-0 mx-2 d-flex justify-content-end">
+          <button class="btn btn-warning me-2" (click)="editProduct(product)">Update</button>
+          <button class="btn btn-danger" (click)="deleteProduct(product._id)">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

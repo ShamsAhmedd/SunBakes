@@ -1,0 +1,43 @@
+<div class="imagee" *ngIf="headerImage" [ngStyle]="{ 'background-image': 'url(' + headerImage + ')' }">
+  <div class="container py-5">
+    <div class="row justify-content-center py-5">
+      <div class="col-lg-10 pt-lg-5 mt-lg-5 text-center">
+        <h1 class="display-3 text-white animated slideInDown">
+          <br>
+          <br>
+          <br>
+        </h1>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-xxl py-5">
+  <div class="container">
+    <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+      <h6 class="section-title bg-white text-center text-primary px-3">Categories</h6>
+      <h1 class="text-primary mb-5">Discover Our Categories</h1>
+    </div>
+
+    <div class="container mt-4">
+      <div class="row">
+        <div class="col-md-4" *ngFor="let category of categories">
+          <a [routerLink]="['/products', category._id]" class="card-link">
+            <div class="card">
+              <div class="image-container position-relative">
+                <img class="card-img-top" [src]="category.imageUrl" alt="Category image">
+                <div class="overlay-card">
+                  <i class="fas fa-eye"></i> 
+                </div>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">{{ category.title }}</h5>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

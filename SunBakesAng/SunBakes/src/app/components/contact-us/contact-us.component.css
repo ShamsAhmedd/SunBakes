@@ -1,0 +1,100 @@
+
+form {
+  border-radius: 100px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  margin-top: 10px !important;
+  border: 1px solid #804132;
+  padding: 50px !important;
+  font-size: 20px;
+  color: white;
+}
+
+h2 {
+  text-align: center !important; 
+  margin-bottom: 30px !important; 
+  color: #863928 !important; 
+  text-shadow: -1px -1px 0 #000000, 1px -1px 0 #000000, -1px 1px 0 #000000, 1px 1px 0 #000000;
+}
+
+
+
+input,
+textarea {
+  width: 100% !important; 
+  padding: 15px !important; 
+  margin-bottom: 20px !important;
+  border: 1px solid #b4b2b2 !important; 
+  border-radius: 20px !important; 
+  font-size: 16px !important; 
+  color: #232323 !important; 
+  background-color: #fff !important; 
+}
+
+textarea {
+  resize: none !important; 
+}
+
+button {
+  width: 100% !important; 
+  padding: 12px !important; 
+  margin-top: 10px !important; 
+  background-color: #863928 !important; 
+  color: #fff !important; 
+  border: none !important; 
+  border-radius: 20px !important; 
+  cursor: pointer !important; 
+  font-size: 16px !important; 
+}
+
+button:hover {
+  background-color: #a56d3c !important; 
+}
+
+button:disabled {
+  background-color: #cccccc !important; 
+  cursor: not-allowed !important; 
+}
+.contact-container {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.contact-info, .map-container {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  height: 400px;
+}
+
+.contact-info h5 {
+  color: #804132;
+}
+
+.icon-box {
+  background-color: #804132;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.icon-box i {
+  font-size: 20px;
+}
+
+.map-container iframe {
+  border-radius: 15px;
+  height: 100%;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .contact-container {
+    flex-direction: column; 
+  }
+
+  .contact-info, .map-container {
+    height: auto;
+  }
+}

@@ -1,0 +1,87 @@
+<header>
+  <div class="imagee" style="background-image: url('{{ headerImage }}');">
+    <div class="overlay"></div>
+    <div class="container py-5">
+      <div class="row justify-content-center py-5" style="position: relative;">
+        <div class="col-lg-8 text-center pt-lg-5 mt-lg-5" style="position: relative; z-index: 3;">
+          <h1 class="display-3 text-white mb-3 texxt">Enjoy Unique Taste</h1>
+          <div class="position-relative w-75 mx-auto" style="margin-top: 7%;">
+            <input class="form-control border-0 rounded-pill w-100 py-3 ps-4 pe-5" type="text" placeholder="Search..." [(ngModel)]="searchTerm"/>
+            <button id="buttonStyle" type="button" class="btn btn-primary rounded-pill py-2 px-4 position-absolute top-0 end-0 me-2" (click)="scrollToProducts()">
+              Search
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="marquee">
+      <div class="tape">
+        <p class="tape-text">Welcome to sunBakes, the place where your passion for baking comes to life!</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="container-xxl py-5">
+  <div class="container">
+    <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+      <h6 class="section-title bg-white text-center text-primary px-3">Categories</h6>
+      <h1 class="text-primary mb-5">Discover Our Categories</h1>
+    </div>
+
+    <div class="container mt-4">
+      <div class="row">
+        <div class="col-md-4" *ngFor="let category of categories">
+          <a [routerLink]="['/products', category._id]" class="card-link">
+            <div class="card">
+              <div class="image-container position-relative">
+                <img class="card-img-top" [src]="category.imageUrl" alt="Category image">
+                <div class="overlay-card">
+                  <i class="fas fa-eye"></i>
+                </div>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">{{ category.title }}</h5>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="container-xxl py-5" #productsSection> 
+  <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+    <h6 class="section-title bg-white text-center text-primary px-3">The Most Popular Products</h6>
+  </div>
+
+  <section class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-md-3 mb-4" *ngFor="let item of products | search:searchTerm ">
+        <a [routerLink]="['/details', item._id]" class="card-link">
+          <div class="cardProduct h-100 d-flex flex-column shadow-sm">
+            <div class="image-container-product">
+              <img [src]="item.imageCover" class="card-img-top-product" [alt]="item.title" style="width: 100%;">
+            </div>
+            <div class="card-body-product d-flex flex-column">
+              <h5 class="card-title text-primary text-center">{{ item.category.title }}</h5>
+              <h6 class="card-subtitle mb-4 text-dark text-center">{{ item.title }}</h6>
+              <div class="mt-auto">
+                <div class="card-text text-muted d-flex justify-content-between align-items-center">
+                  <span>{{ item.price | currency:'EUR' }}</span>
+                  <div class="d-flex align-items-center">
+                    <i class="fas fa-star text-warning"></i>
+                    <span class="ms-2">{{ item.ratingAverage }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+</div>

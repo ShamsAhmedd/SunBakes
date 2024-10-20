@@ -1,0 +1,79 @@
+<div class="main" style="margin-top: 100px;">
+  <form
+    [formGroup]="AboutForm"
+    (ngSubmit)="handleAddOrUpdateAbout()"
+    class="form"
+    style="background-color: #f8f9fa; padding: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);"
+  >
+    <h1 class="form-title text-primary text-center mb-4">
+      {{ currentAboutId ? 'Update About' : 'Add About' }}
+    </h1>
+
+    <div class="mb-3">
+      <label for="headerImg" class="form-label">Header Image (Optional)</label>
+      <input
+        class="mdl-textfield__input"
+        type="file"
+        (change)="onAboutFileSelected($event, 'headerImg')"
+        accept="image/*"
+      />
+    </div>
+
+
+    <div class="mb-3">
+      <label for="flipImage" class="form-label">Flip Image</label>
+      <input
+        class="mdl-textfield__input"
+        type="file"
+        (change)="onAboutFileSelected($event, 'flipImage')"
+        accept="image/*"
+      />
+    </div>
+
+    <div class="mb-3">
+      <textarea
+        class="mdl-textfield__input border-0 border-opacity-50"
+        id="description"
+        formControlName="description"
+        placeholder="Enter description"
+        style="padding: 10px; border: 1px solid #ced4da; border-radius: 5px;"
+      ></textarea>
+      <div *ngIf="AboutForm.get('description')?.invalid && AboutForm.get('description')?.touched" class="text-danger">
+        Description is required.
+      </div>
+    </div>
+
+    <div class="buttons-container text-center">
+      <button
+        class="mdl-button mdl-js-button mdl-button--raised color--light-blue"
+        type="submit"
+        style="padding: 10px 20px; border-radius: 5px;"
+      >
+        <i *ngIf="isLoading" class="fas fa-spinner fa-spin"></i>
+        {{ currentAboutId ? 'Update About' : 'Add About' }}
+      </button>
+    </div>
+  </form>
+
+  <div *ngIf="messageError" class="error text-danger text-center">{{ messageError }}</div>
+
+  <div class="card mt-4" style="padding: 20px;">
+    <h1 class="card-header text-primary text-center">About List</h1>
+    <div class="card-body">
+      <div *ngFor="let about of about" class="contentStyle d-flex align-items-center mb-3 border p-3 rounded" style="background-color: #f9f9f9;">
+        <div class="style-title flex-fill text-start mx-2">
+          <p class="m-0">Description: {{ about.description }}</p>
+        </div>
+
+        <div class="image-container flex-fill mx-2 d-flex justify-content-center">
+          <img [src]="about.flipImage" alt="Flip Image" class="image-style" *ngIf="about.flipImage" style="width: 100px; height: 100px; object-fit: cover;">
+        </div>
+
+        <div class="style-buttons flex-shrink-0 mx-2 d-flex justify-content-end">
+          <button class="btn btn-warning me-2" (click)="editAbout(about)">Update</button>
+          <button class="btn btn-danger" (click)="deleteAbout(about._id)">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
